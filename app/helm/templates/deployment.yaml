@@ -1,18 +1,6 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: "helmdeployment"
-spec:
-  replicas: {{ .Values.replicaCount }}
-  selector:
-    matchLabels:
-      {{- include "helm.selectorLabels" . | nindent 6 }}
-  template:
-    metadata:
-      {{- with .Values.podAnnotations }}
-apiVersion: apps/v1
-kind: Deployment
-metadata:
     name: app-deploy
     labels:
       app: app
