@@ -1,2 +1,2 @@
 env:
-  APP_VERSION: prod
+  APP_VERSION: latest
