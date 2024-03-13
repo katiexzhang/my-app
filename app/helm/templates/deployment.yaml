@@ -14,10 +14,8 @@ spec:
             labels:
                 app: app
         spec:
-        {{- with.Values.imagePullSecrets }}
             imagePullSecrets:
-              {{- toYaml . | nindent 8}}
-        {{- end }}
+                - name: regcred
             containers:
                 - name: app
                   image: katiexzhang/oss_implementation_repo:{{ .Values.env.APP_VERSION }}
