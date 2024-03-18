@@ -1,2 +1,11 @@
 env:
   APP_VERSION: 806ec167a73ca95cee0aa56c9646c7b5eec68678
+devEnv:
+  APP_VERSION: 806ec167a73ca95cee0aa56c9646c7b5eec68678
+  replicas: 2
+stagingEnv:
+  APP_VERSION: 806ec167a73ca95cee0aa56c9646c7b5eec68678
+  replicas: 2
+prodEnv:
+  APP_VERSION: 806ec167a73ca95cee0aa56c9646c7b5eec68678
+  replicas: 3
