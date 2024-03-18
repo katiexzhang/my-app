@@ -1,11 +1,11 @@
 env:
-  APP_VERSION: 806ec167a73ca95cee0aa56c9646c7b5eec68678
+  APP_VERSION: bae6bc67f8fdcac5398f128362bcdc1513871fe3
 devEnv:
-  APP_VERSION: 806ec167a73ca95cee0aa56c9646c7b5eec68678
+  APP_VERSION: bae6bc67f8fdcac5398f128362bcdc1513871fe3
   replicas: 2
 stagingEnv:
-  APP_VERSION: 806ec167a73ca95cee0aa56c9646c7b5eec68678
+  APP_VERSION: bae6bc67f8fdcac5398f128362bcdc1513871fe3
   replicas: 2
 prodEnv:
-  APP_VERSION: 806ec167a73ca95cee0aa56c9646c7b5eec68678
+  APP_VERSION: bae6bc67f8fdcac5398f128362bcdc1513871fe3
   replicas: 3
