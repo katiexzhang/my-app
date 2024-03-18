@@ -1,4 +1,4 @@
 env:
-  APP_VERSION: b2f4e07cf79b77dc33c1ae085b0ece4f4a42e3f6
+  APP_VERSION: 0b1c1c4890ba21ca20572a53dd5af4be98370358
 imagePullSecrets:
   - name: regcred
