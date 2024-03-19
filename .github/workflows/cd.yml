@@ -34,7 +34,7 @@ jobs:
           cd app
           docker push ${{ env.DOCKERHUB_USERNAME }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
 
-      - name: Update values.yaml
+      - name: Update values-dev.yaml
         run: |
           cd app/helm
           sed -i 's|APP_VERSION:.*|APP_VERSION: '${{ github.sha }}'|' values-dev.yaml
