@@ -1,11 +1,3 @@
 env:
-  APP_VERSION: 6e1fab2a35684c53666ecf867b93028da530290a
-devEnv:
-  APP_VERSION: 6e1fab2a35684c53666ecf867b93028da530290a
+  APP_VERSION: a5c3ae728c9b5dcd5da1e6e9a521a4ee3dcad7f6
   replicas: 2
-stagingEnv:
-  APP_VERSION: 6e1fab2a35684c53666ecf867b93028da530290a
-  replicas: 2
-prodEnv:
-  APP_VERSION: 6e1fab2a35684c53666ecf867b93028da530290a
-  replicas: 3
