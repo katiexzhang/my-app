@@ -23,7 +23,7 @@ spec:
                     - containerPort: 3000
                   env:
                   - name: NAME
-                    value: 'Katie from staging'
+                    value: 'Katie'
                   readinessProbe:
                     httpGet:
                         path: /health
