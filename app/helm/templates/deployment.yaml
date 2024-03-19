@@ -1,6 +1,50 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+    name: app-deploy
+    labels:
+      app: app
+spec:
+    replicas: {{ .Values.env.replicas }}
+    selector:
+        matchLabels:
+            app: app
+    template:
+        metadata:
+            labels:
+                app: app
+        spec:
+            imagePullSecrets:
+                - name: regcred
+            containers:
+                - name: app
+                  image: katiexzhang/oss_implementation_repo:{{ .Values.env.APP_VERSION }}
+                  ports:
+                    - containerPort: 3000
+                  env:
+                  - name: NAME
+                    value: 'Katie'
+                  readinessProbe:
+                    httpGet:
+                        path: /health
+                        port: 3000
+                    initialDelaySeconds: 10
+                    periodSeconds: 10
+                    successThreshold: 1
+                    failureThreshold: 3
+                  livenessProbe:
+                    httpGet:
+                        path: /health
+                        port: 3000
+                    initialDelaySeconds: 10
+                    periodSeconds: 10
+                    timeoutSeconds: 5
+                    successThreshold: 1
+                    failureThreshold: 3
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
     name: app-deploy-dev
     env: dev
     labels:
@@ -24,7 +68,7 @@ spec:
                     - containerPort: 3000
                   env:
                   - name: NAME
-                    value: 'Katie'
+                    value: 'Katie from Dev'
                   readinessProbe:
                     httpGet:
                         path: /health
@@ -69,7 +113,7 @@ spec:
                     - containerPort: 3000
                   env:
                   - name: NAME
-                    value: 'Katie'
+                    value: 'Katie from Staging'
                   readinessProbe:
                     httpGet:
                         path: /health
@@ -114,7 +158,7 @@ spec:
                     - containerPort: 3000
                   env:
                   - name: NAME
-                    value: 'Katie'
+                    value: 'Katie from Prod'
                   readinessProbe:
                     httpGet:
                         path: /health
