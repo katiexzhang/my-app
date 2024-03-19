@@ -45,8 +45,12 @@ jobs:
           git push
 
   create-pull-request:
+      needs: build-and-deploy
       runs-on: ubuntu-latest
       steps:
+        - name: Checkout code
+          uses: actions/checkout@v2
+        
         - name: create pull request
           run: gh pr create -B staging -H dev --title 'Merge dev into staging' --body 'Created by Github action'
           env:
