@@ -32,7 +32,11 @@ jobs:
       - name: Push Docker image
         run: |
           cd app
+          docker tag ${{ env.DOCKERHUB_USERNAME }}/${{ env.IMAGE_NAME }}:${{ github.sha }} my-app:latest
+          docker tag ${{ env.DOCKERHUB_USERNAME }}/${{ env.IMAGE_NAME }}:${{ github.sha }} my-app:dev
           docker push ${{ env.DOCKERHUB_USERNAME }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
+          docker push my-app:latest
+          docker push my-app:dev
 
       - name: Update values.yaml
         run: |
@@ -43,15 +47,3 @@ jobs:
           git add values.yaml
           git commit -m "Update values.yaml"
           git push
-
-  create-pull-request:
-      needs: build-and-deploy
-      runs-on: ubuntu-latest
-      steps:
-        - name: Checkout code
-          uses: actions/checkout@v2
-        
-        - name: create pull request
-          run: gh pr create -B dev -H staging --title 'Merge staging into dev' --body 'Created by Github action'
-          env:
-              GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
