@@ -45,24 +45,24 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-    name: app-deploy
+    name: app-deploy-dev
     env: dev
     labels:
-      app: app
+      app: app-dev
 spec:
     replicas: {{ .Values.devEnv.replicas }}
     selector:
         matchLabels:
-            app: app
+            app: app-dev
     template:
         metadata:
             labels:
-                app: app
+                app: app-dev
         spec:
             imagePullSecrets:
                 - name: regcred
             containers:
-                - name: app
+                - name: app-dev
                   image: katiexzhang/oss_implementation_repo:{{ .Values.devEnv.APP_VERSION }}
                   ports:
                     - containerPort: 3000
@@ -90,24 +90,24 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-    name: app-deploy
+    name: app-deploy-staging
     env: staging
     labels:
-      app: app
+      app: app-staging
 spec:
     replicas: {{ .Values.stagingEnv.replicas }}
     selector:
         matchLabels:
-            app: app
+            app: app-staging
     template:
         metadata:
             labels:
-                app: app
+                app: app-staging
         spec:
             imagePullSecrets:
                 - name: regcred
             containers:
-                - name: app
+                - name: app-staging
                   image: katiexzhang/oss_implementation_repo:{{ .Values.stagingEnv.APP_VERSION }}
                   ports:
                     - containerPort: 3000
@@ -135,24 +135,24 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-    name: app-deploy
+    name: app-deploy-prod
     env: prod
     labels:
-      app: app
+      app: app-prod
 spec:
     replicas: {{ .Values.prodEnv.replicas }}
     selector:
         matchLabels:
-            app: app
+            app: app-prod
     template:
         metadata:
             labels:
-                app: app
+                app: app-prod
         spec:
             imagePullSecrets:
                 - name: regcred
             containers:
-                - name: app
+                - name: app-prod
                   image: katiexzhang/oss_implementation_repo:{{ .Values.prodEnv.APP_VERSION }}
                   ports:
                     - containerPort: 3000
