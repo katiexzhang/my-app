@@ -43,3 +43,11 @@ jobs:
           git add values.yaml
           git commit -m "Update values.yaml"
           git push
+
+  create-pull-request:
+      runs-on: ubuntu-latest
+      steps:
+        - name: create pull request
+          run: gh pr create -B staging -H dev --title 'Merge dev into staging' --body 'Created by Github action'
+          env:
+              GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
