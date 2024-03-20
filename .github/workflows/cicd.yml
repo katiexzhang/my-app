@@ -26,7 +26,7 @@ jobs:
         uses: helm/chart-testing-action@v2.3.1
 
       - name: Run Helm chart tests
-        run: ct install --chart-dirs app/helm
+        run: ct install --chart-dirs app/helm/templates
 
   build-and-push-docker-image:
     runs-on: ubuntu-latest
