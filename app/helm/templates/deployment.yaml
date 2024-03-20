@@ -25,7 +25,7 @@ spec:
                   - name: NAME
                     value: 'Katie'
                   - name: EMOJI
-                    value: '😁'
+                    value: '😎'
                   readinessProbe:
                     httpGet:
                         path: /health
