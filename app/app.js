@@ -12,5 +12,6 @@ app.get('/health', (req, res) => {
 
 app.get('/', (req, res) => {
   const name = process.env.NAME || 'World';
-  res.send(`Hello ${name}! Nice to meet you.`);
+  const emoji = process.env.EMOJI || ':)';
+  res.send(`Hello ${name}! ${emoji}`);
 });
