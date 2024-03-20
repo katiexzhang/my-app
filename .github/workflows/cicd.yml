@@ -16,6 +16,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
 
       - name: Install chart-testing
         uses: helm/chart-testing-action@v2.3.1
@@ -76,6 +78,7 @@ jobs:
         
       - name: Update values-staging.yaml
         run: |
+          git pull
           cd app/helm
           sed -i 's|APP_VERSION:.*|APP_VERSION: '${{ github.sha }}'|' values-staging.yaml
           git config --global user.name 'GitHub Actions'
@@ -95,6 +98,7 @@ jobs:
         
       - name: Update values-prod.yaml
         run: |
+          git pull
           cd app/helm
           sed -i 's|APP_VERSION:.*|APP_VERSION: '${{ github.sha }}'|' values-prod.yaml
           git config --global user.name 'GitHub Actions'
