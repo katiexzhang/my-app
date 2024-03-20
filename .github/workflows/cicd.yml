@@ -12,7 +12,7 @@ env:
 
 jobs:
   test:
-    runs-on: ubunti-latest
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -50,7 +50,11 @@ jobs:
     environment: dev
     runs-on: ubuntu-latest
     needs: build-and-push-docker-image
+    
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        
       - name: Update values-dev.yaml
         run: |
           cd app/helm
@@ -65,7 +69,11 @@ jobs:
     environment: staging
     runs-on: ubuntu-latest
     needs: deploy-to-dev
+    
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        
       - name: Update values-staging.yaml
         run: |
           cd app/helm
@@ -80,7 +88,11 @@ jobs:
     environment: prod
     runs-on: ubuntu-latest
     needs: deploy-to-staging
+    
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        
       - name: Update values-prod.yaml
         run: |
           cd app/helm
