@@ -24,6 +24,8 @@ spec:
                   env:
                   - name: NAME
                     value: 'Katie'
+                  - name: EMOJI
+                    value: '😁'
                   readinessProbe:
                     httpGet:
                         path: /health
