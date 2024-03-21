@@ -1,3 +1,3 @@
 env:
-  APP_VERSION: 2bbd2c569f7817d6db1acbd8559c64cde68f216a
+  APP_VERSION: ba93aa89aece45941864e648f94e6af38a60305d
   replicas: 3
