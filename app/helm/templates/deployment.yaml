@@ -117,7 +117,7 @@ spec:
                   - name: NAME
                     value: 'Katie from prod'
                   - name: EMOJI
-                    value: '😎'
+                    value: '🥳'
                   readinessProbe:
                     httpGet:
                         path: /health
