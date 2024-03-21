@@ -84,14 +84,14 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
         
-      - name: Update values.yaml for dev
+      - name: Update dev image
         run: |
           cd app/helm
-          sed -i 's|dev: APP_VERSION:.*|dev: APP_VERSION: '${{ github.sha }}'|' values.yaml
+          sed -i 's|DEV_APP_VERSION:.*|DEV_APP_VERSION: '${{ github.sha }}'|' values.yaml
           git config --global user.name 'GitHub Actions'
           git config --global user.email 'actions@github.com'
           git add values.yaml
-          git commit -m "Update values.yaml for dev"
+          git commit -m "Update DEV_APP_VERSION in values.yaml"
           git push
 
   deploy-to-staging:
@@ -103,15 +103,15 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
         
-      - name: Update values-staging.yaml
+      - name: Update staging image
         run: |
           git pull
           cd app/helm
-          sed -i 's|APP_VERSION:.*|APP_VERSION: '${{ github.sha }}'|' values-staging.yaml
+          sed -i 's|STAGING_APP_VERSION:.*|STAGING_APP_VERSION: '${{ github.sha }}'|' values.yaml
           git config --global user.name 'GitHub Actions'
           git config --global user.email 'actions@github.com'
-          git add values-staging.yaml
-          git commit -m "Update values-staging.yaml"
+          git add values.yaml
+          git commit -m "Update STAGING_APP_VERSION in values.yaml"
           git push
 
   deploy-to-prod:
@@ -123,13 +123,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
         
-      - name: Update values-prod.yaml
+      - name: Update prod image
         run: |
           git pull
           cd app/helm
-          sed -i 's|APP_VERSION:.*|APP_VERSION: '${{ github.sha }}'|' values-prod.yaml
+          sed -i 's|PROD_APP_VERSION:.*|PROD_APP_VERSION: '${{ github.sha }}'|' values.yaml
           git config --global user.name 'GitHub Actions'
           git config --global user.email 'actions@github.com'
           git add values-prod.yaml
-          git commit -m "Update values-prod.yaml"
+          git commit -m "Update PROD_APP_VERSION in values.yaml"
           git push
