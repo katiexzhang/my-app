@@ -130,6 +130,6 @@ jobs:
           sed -i 's|PROD_APP_VERSION:.*|PROD_APP_VERSION: '${{ github.sha }}'|' values.yaml
           git config --global user.name 'GitHub Actions'
           git config --global user.email 'actions@github.com'
-          git add values-prod.yaml
+          git add values.yaml
           git commit -m "Update PROD_APP_VERSION in values.yaml"
           git push
