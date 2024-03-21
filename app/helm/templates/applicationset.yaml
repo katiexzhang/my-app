@@ -1,0 +1,29 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: myapp-appset
+spec:
+  generators:
+    - list:
+        elements:
+          - cluster: dev
+            valuesFile: values-dev.yaml
+          - cluster: staging
+            valuesFile: values-staging.yaml
+          - cluster: prod
+            valuesFile: values-prod.yaml 
+  template:
+    metadata:
+      name: myapp-{{cluster}}
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/katiexzhang/my-app.git
+        targetRevision: HEAD
+        path: app/helm
+        helm:
+          values:
+            configFile: {{valuesFile}}  
+      destination:
+        server: https://kubernetes.default.svc 
+        namespace: {{cluster}}  
