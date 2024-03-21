@@ -1,11 +1,11 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-    name: app-deploy
+    name: app-deploy-dev
     labels:
       app: app
 spec:
-    replicas: {{ .Values.env.replicas }}
+    replicas: {{ .Values.dev.REPLICAS }}
     selector:
         matchLabels:
             app: app
@@ -18,12 +18,12 @@ spec:
                 - name: regcred
             containers:
                 - name: app
-                  image: katiexzhang/oss_implementation_repo:{{ .Values.env.APP_VERSION }}
+                  image: katiexzhang/oss_implementation_repo:{{ .Values.dev.DEV_APP_VERSION }}
                   ports:
                     - containerPort: 3000
                   env:
                   - name: NAME
-                    value: 'Katie'
+                    value: 'Katie from dev'
                   - name: EMOJI
                     value: '😎'
                   readinessProbe:
@@ -43,3 +43,96 @@ spec:
                     timeoutSeconds: 5
                     successThreshold: 1
                     failureThreshold: 3
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: app-deploy-staging
+    labels:
+      app: app
+spec:
+    replicas: {{ .Values.staging.REPLICAS }}
+    selector:
+        matchLabels:
+            app: app
+    template:
+        metadata:
+            labels:
+                app: app
+        spec:
+            imagePullSecrets:
+                - name: regcred
+            containers:
+                - name: app
+                  image: katiexzhang/oss_implementation_repo:{{ .Values.staging.STAGING_APP_VERSION }}
+                  ports:
+                    - containerPort: 3000
+                  env:
+                  - name: NAME
+                    value: 'Katie from staging'
+                  - name: EMOJI
+                    value: '😎'
+                  readinessProbe:
+                    httpGet:
+                        path: /health
+                        port: 3000
+                    initialDelaySeconds: 10
+                    periodSeconds: 10
+                    successThreshold: 1
+                    failureThreshold: 3
+                  livenessProbe:
+                    httpGet:
+                        path: /health
+                        port: 3000
+                    initialDelaySeconds: 10
+                    periodSeconds: 10
+                    timeoutSeconds: 5
+                    successThreshold: 1
+                    failureThreshold: 3
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: app-deploy-prod
+    labels:
+      app: app
+spec:
+    replicas: {{ .Values.prod.REPLICAS }}
+    selector:
+        matchLabels:
+            app: app
+    template:
+        metadata:
+            labels:
+                app: app
+        spec:
+            imagePullSecrets:
+                - name: regcred
+            containers:
+                - name: app
+                  image: katiexzhang/oss_implementation_repo:{{ .Values.prod.PROD_APP_VERSION }}
+                  ports:
+                    - containerPort: 3000
+                  env:
+                  - name: NAME
+                    value: 'Katie from prod'
+                  - name: EMOJI
+                    value: '😎'
+                  readinessProbe:
+                    httpGet:
+                        path: /health
+                        port: 3000
+                    initialDelaySeconds: 10
+                    periodSeconds: 10
+                    successThreshold: 1
+                    failureThreshold: 3
+                  livenessProbe:
+                    httpGet:
+                        path: /health
+                        port: 3000
+                    initialDelaySeconds: 10
+                    periodSeconds: 10
+                    timeoutSeconds: 5
+                    successThreshold: 1
+                    failureThreshold: 3
+
