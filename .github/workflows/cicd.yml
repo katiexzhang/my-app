@@ -84,14 +84,14 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
         
-      - name: Update values-dev.yaml
+      - name: Update values.yaml for dev
         run: |
           cd app/helm
-          sed -i 's|APP_VERSION:.*|APP_VERSION: '${{ github.sha }}'|' values-dev.yaml
+          sed -i 's|dev: APP_VERSION:.*|dev: APP_VERSION: '${{ github.sha }}'|' values.yaml
           git config --global user.name 'GitHub Actions'
           git config --global user.email 'actions@github.com'
-          git add values-dev.yaml
-          git commit -m "Update values-dev.yaml"
+          git add values.yaml
+          git commit -m "Update values.yaml for dev"
           git push
 
   deploy-to-staging:
