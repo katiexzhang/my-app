@@ -101,6 +101,11 @@ spec:
     selector:
         matchLabels:
             app: app
+    strategy:
+        canary:
+            steps:
+            - setWeight: 50
+            - pause: {}
     template:
         metadata:
             labels:
