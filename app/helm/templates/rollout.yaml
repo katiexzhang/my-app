@@ -1,0 +1,49 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: prod-rollout
+spec:
+  replicas: {{ .Values.prod.REPLICAS }}
+  strategy:
+    canary:
+      steps:
+      - setWeight: 25
+      - pause: {duration: 30s}
+      - setWeight: 50
+      - pause: {duration: 1m}
+  revisionHistoryLimit: 2
+  selector: 
+    matchLabels:
+      app: app 
+  template:
+    metadata:
+      labels:
+        app: app
+    spec:
+      containers:
+        - name: app
+          image: katiexzhang/oss_implementation_repo:{{ .Values.prod.PROD_APP_VERSION }}
+          ports:
+            - containerPort: 3000
+          env:
+          - name: NAME
+            value: 'Katie from prod'
+          - name: EMOJI
+            value: '🥳'
+          readinessProbe:
+            httpGet:
+                path: /health
+                port: 3000
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            successThreshold: 1
+            failureThreshold: 3
+          livenessProbe:
+            httpGet:
+                path: /health
+                port: 3000
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            timeoutSeconds: 5
+            successThreshold: 1
+            failureThreshold: 3
