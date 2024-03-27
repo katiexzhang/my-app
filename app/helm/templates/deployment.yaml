@@ -6,6 +6,7 @@ metadata:
       app: app
 spec:
     replicas: {{ .Values.dev.REPLICAS }}
+    revisionHistoryLimit: {{ .Values.dev.REVISION_HISTORY_LIMIT }}
     selector:
         matchLabels:
             app: app
@@ -52,6 +53,7 @@ metadata:
       app: app
 spec:
     replicas: {{ .Values.staging.REPLICAS }}
+    revisionHistoryLimit: {{ .Values.staging.REVISION_HISTORY_LIMIT }}
     selector:
         matchLabels:
             app: app
@@ -98,6 +100,7 @@ metadata:
       app: app
 spec:
     replicas: {{ .Values.prod.REPLICAS }}
+    revisionHistoryLimit: {{ .Values.prod.REVISION_HISTORY_LIMIT }}
     selector:
         matchLabels:
             app: app
